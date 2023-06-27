@@ -16,3 +16,6 @@ En la terminal, no importa donde estemos, lanzamos el siguiente comando:
 Una vez instalado, lanzaremos el siguiente comando: 
 > pip install uvicorn
 
+Para que funcione en el navegador, iremos en la terminal hasta la carpeta de nuestro proyecto y lanzaremos el comando:
+> uvicorn index:app --reload
+Tendremos en cuenta que index es donde se inicia el proyecto y app es el nombre de la variable donde instanciamos FastApi. 
