@@ -49,11 +49,18 @@ async def obtener_producto(codigo_barras: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         json_data = response.json()
-        procesar_producto(json_data)
+        process_product(json_data)
         return json_data
     
-def procesar_producto(json_data):
-    allergens = json_data.get("product.allergens_from_ingredients")
-    print("hola")
-    print(allergens)
-    ingredientes = json_data.get("ingredientes")
+def process_product(json_data):
+    allergens = json_data["product"]["allergens"]+json_data["product"]["allergens_from_ingredients"]+json_data["product"]["allergens_from_user"]
+    allergens_hierarchy =json_data["product"]["allergens_hierarchy"]
+    for allergen in allergens_hierarchy:
+        allergens= allergens+","+allergen
+
+    allergens_tags =json_data["product"]["allergens_tags"]
+    for allergen_tag in allergens_tags:
+        allergens= allergens+","+allergen_tag
+    
+    processed_text= allergens.replace("en:","")
+    return processed_text
